@@ -1,6 +1,6 @@
 import 'reset-css'
 import styled, { ThemeProvider } from 'styled-components'
-// import Layout from '../components/layout'
+import Layout from '../components/layout'
 import { GlobalStyle, theme } from '../styles'
 
 const MyApp = ({ Component, pageProps }) => {
@@ -8,7 +8,9 @@ const MyApp = ({ Component, pageProps }) => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
 
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
 }
