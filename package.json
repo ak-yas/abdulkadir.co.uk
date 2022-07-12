@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@anatoliygatt/use-prefers-reduced-motion": "^1.0.4",
     "framer-motion": "^6.4.3",
     "next": "latest",
     "react": "^18.2.0",

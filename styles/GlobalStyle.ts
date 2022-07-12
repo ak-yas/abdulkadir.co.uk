@@ -63,7 +63,7 @@ const GlobalStyle = createGlobalStyle<{theme: ThemeInterface}>`
     overflow-x: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: var(--fogra);
+    background-color: var(--fogra) !important;
     color: var(--platinum);
     font-family: var(--font-sans);
     font-size: var(--fz-xl);

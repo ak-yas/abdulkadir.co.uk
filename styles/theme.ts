@@ -3,7 +3,7 @@ import mixins from './mixins'
 
 const theme: ThemeInterface = {
 
-  bp: {
+  breakpoints: {
     mobileS: `max-width: 330px`,
     mobileM: `max-width: 400px`,
     mobileL: `max-width: 480px`,
