@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Loader from './loader'
 import Nav from './nav'
+import NavigationDots from './navigationDots'
+import Social from './social'
 
 const StyledContent = styled.div`
   display: flex;
   flex-direction: column;
   min-block-size: 100vh;
-  block-size: 2000px;
 `
 
 const Layout = ({ children }) => {
@@ -52,6 +53,8 @@ const Layout = ({ children }) => {
         ) : (
           <StyledContent>
             <Nav isHome={isHome} active={activeId} />
+            <NavigationDots isHome={isHome} active={activeId} />
+            <Social isHome={isHome} />
             <div id="content">{children}</div>
           </StyledContent>
         )}
