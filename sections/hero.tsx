@@ -354,7 +354,7 @@ const Hero = () => {
                   />
                   <motion.div
                     whileInView={{ scale: [0, 1] }}
-                    transition={{ duration: 1, ease: 'easeInOut' }}
+                    transition={{ duration: 1, ease: 'easeInOut', delay: 1 }}
                     className="overlay_circle"
                   >
                     <Image
