@@ -344,14 +344,17 @@ const Hero = () => {
                   </StyledBadge>
                 </StyledHeroInfo>
 
-                <StyledHeroImg animate={{ opacity: [0, 1] }}>
-                  <Image
-                    src={images.profile}
-                    alt="profile_bg"
-                    layout="intrinsic"
-                    height={700}
-                    width={700}
-                  />
+                <StyledHeroImg>
+                  <motion.div animate={{ opacity: [0, 1] }}>
+                    <Image
+                      src={images.profile}
+                      alt="profile_bg"
+                      layout="intrinsic"
+                      height={700}
+                      width={700}
+                    />
+                  </motion.div>
+
                   <motion.div
                     whileInView={{ scale: [0, 1] }}
                     transition={{ duration: 1, ease: 'easeInOut', delay: 1 }}
