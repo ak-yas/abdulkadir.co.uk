@@ -6,15 +6,23 @@ import { images } from '../public/index'
 import { usePrefersReducedMotion } from '../hooks'
 import { useEffect } from 'react'
 
-const StyledHero = styled.div`
-  ${({ theme }) => theme.mixins.flexCenter};
-  flex: 1;
+const StyledContainer = styled.div`
   width: 100%;
-  height: 100%;
   min-height: 100vh;
   display: flex;
+
+  & > div {
+    padding: 0;
+    ${({ theme }) => theme.mixins.flexCenter};
+    width: 100%;
+  }
+`
+
+const StyledHero = styled.div`
+  ${({ theme }) => theme.mixins.flexCenter};
+  width: 100%;
+  height: 100%;
   flex-direction: row;
-  background-color: var(--primary-color);
   padding: 9rem 2rem 0rem;
 
   @media screen and (min-width: 2000px) {
@@ -31,7 +39,7 @@ const StyledHero = styled.div`
 `
 
 const StyledHeroInfo = styled(motion.div)`
-  flex: 0.65;
+  flex: 0.7;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -55,6 +63,7 @@ const StyledBadge = styled(motion.div)`
 
   .badge-cmp,
   .tag-cmp {
+    ${({ theme }) => theme.mixins.boxShadow};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,18 +71,18 @@ const StyledBadge = styled(motion.div)`
     border-radius: 15px;
     flex-direction: row;
     width: auto;
-
-    ${({ theme }) => theme.mixins.boxShadow};
   }
 
   .tag-cmp {
     flex-direction: column;
     margin-top: 3rem;
-
     p {
       width: 100%;
-      text-transform: uppercase;
       text-align: right;
+      font-family: var(--font-mono);
+      font-size: var(--fz-sm);
+      font-weight: 400;
+      text-transform: uppercase;
     }
   }
 
@@ -218,156 +227,168 @@ const Hero = () => {
   }, [])
 
   return (
-    <StyledHero>
-      {prefersReducedMotion ? (
-        <>
-          <StyledHeroInfo>
-            <StyledBadge>
-              <div className="badge-cmp">
-                <span>👋</span>
-                <div style={{ marginLeft: 20 }}>
-                  <p className="p-text">Hello, I am</p>
-                  <h1 className="head-text">Abdulkadir</h1>
+    <StyledContainer id="home">
+      <div>
+        <StyledHero>
+          {prefersReducedMotion ? (
+            <>
+              <StyledHeroInfo>
+                <StyledBadge>
+                  <div className="badge-cmp">
+                    <span>👋</span>
+                    <div style={{ marginLeft: 20 }}>
+                      <p className="p-text">Hello, I am</p>
+                      <h1 className="head-text">Abdulkadir</h1>
+                    </div>
+                  </div>
+
+                  <div className="tag-cmp">
+                    <p className="p-text">Web Developer</p>
+                    <p className="p-text">FullStack Engineer</p>
+                  </div>
+                </StyledBadge>
+              </StyledHeroInfo>
+
+              <StyledHeroImg>
+                <Image
+                  src={images.profile}
+                  alt="profile_bg"
+                  layout="intrinsic"
+                  height={700}
+                  width={700}
+                />
+                <div className="overlay_circle">
+                  <Image
+                    src={images.circle}
+                    alt="profile_circle"
+                    layout="intrinsic"
+                    height={900}
+                    width={700}
+                    style={{ opacity: 0.15 }}
+                  />
                 </div>
-              </div>
+              </StyledHeroImg>
 
-              <div className="tag-cmp">
-                <p className="p-text">Web Developer</p>
-                <p className="p-text">FullStack Engineer</p>
-              </div>
-            </StyledBadge>
-          </StyledHeroInfo>
+              <StyledHeroCircles>
+                {[images.flutter, images.redux, images.sass].map(
+                  (circle, index) => (
+                    <div className="circle-cmp " key={`circle-${index}`}>
+                      <Image src={circle} alt="profile_bg" />
+                    </div>
+                  )
+                )}
+              </StyledHeroCircles>
+            </>
+          ) : (
+            isMounted && (
+              <>
+                <StyledHeroInfo>
+                  <StyledBadge>
+                    <div className="badge-cmp">
+                      <motion.span
+                        initial={{ rotate: 0, opacity: 0, scale: 0.9 }}
+                        animate={{
+                          rotate: [0, 70, 0, 70, 0],
+                          opacity: 1,
+                          scale: 1.1,
+                          transition: {
+                            rotate: {
+                              repeat: Infinity,
+                              duration: 1.3,
+                              repeatDelay: 3.5,
+                            },
+                            delay: 1.7,
+                          },
+                        }}
+                      >
+                        👋
+                      </motion.span>
+                      <div style={{ marginLeft: 20 }}>
+                        <motion.p
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.7 }}
+                          className="p-text"
+                        >
+                          Hello, I am
+                        </motion.p>
+                        <motion.h1
+                          animate={{ y: [20, 0], opacity: [0, 1] }}
+                          initial={{ opacity: 0 }}
+                          transition={{ duration: 1, delay: 0.7 }}
+                          className="head-text"
+                        >
+                          Abdulkadir
+                        </motion.h1>
+                        <motion.h1
+                          animate={{ y: [20, 0], opacity: [0, 1] }}
+                          initial={{ opacity: 0 }}
+                          transition={{ duration: 1, delay: 0.7 }}
+                          className="head-text"
+                        >
+                          Yassin
+                        </motion.h1>
+                      </div>
+                    </div>
 
-          <StyledHeroImg>
-            <Image
-              src={images.profile}
-              alt="profile_bg"
-              layout="intrinsic"
-              height={700}
-              width={700}
-            />
-            <div className="overlay_circle">
-              <Image
-                src={images.circle}
-                alt="profile_circle"
-                layout="intrinsic"
-                height={900}
-                width={700}
-                style={{ opacity: 0.15 }}
-              />
-            </div>
-          </StyledHeroImg>
-
-          <StyledHeroCircles>
-            {[images.flutter, images.redux, images.sass].map(
-              (circle, index) => (
-                <div className="circle-cmp " key={`circle-${index}`}>
-                  <Image src={circle} alt="profile_bg" />
-                </div>
-              )
-            )}
-          </StyledHeroCircles>
-        </>
-      ) : (
-        isMounted && (
-          <>
-            <StyledHeroInfo>
-              <StyledBadge>
-                <div className="badge-cmp">
-                  <motion.span
-                    initial={{ rotate: 0, opacity: 0, scale: 0.9 }}
-                    animate={{
-                      rotate: [0, 70, 0, 70, 0],
-                      opacity: 1,
-                      scale: 1.1,
-                      transition: {
-                        rotate: {
-                          repeat: Infinity,
-                          duration: 1.3,
-                          repeatDelay: 3.5,
-                        },
-                        delay: 1.7,
-                      },
-                    }}
-                  >
-                    👋
-                  </motion.span>
-                  <div style={{ marginLeft: 20 }}>
-                    <motion.p
+                    <motion.div
+                      whileInView={{ y: [10, 0], opacity: [0, 1] }}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 0.7 }}
-                      className="p-text"
+                      transition={{ duration: 0.5 }}
+                      className="tag-cmp"
                     >
-                      Hello, I am
-                    </motion.p>
-                    <motion.h1
-                      animate={{ y: [20, 0], opacity: [0, 1] }}
-                      initial={{ opacity: 0 }}
-                      transition={{ duration: 1, delay: 0.7 }}
-                      className="head-text"
-                    >
-                      Abdulkadir
-                    </motion.h1>
-                  </div>
-                </div>
+                      <p className="p-text">Web Developer</p>
+                      <p className="p-text">FullStack Engineer</p>
+                    </motion.div>
+                  </StyledBadge>
+                </StyledHeroInfo>
 
-                <motion.div
-                  whileInView={{ y: [10, 0], opacity: [0, 1] }}
+                <StyledHeroImg animate={{ opacity: [0, 1] }}>
+                  <Image
+                    src={images.profile}
+                    alt="profile_bg"
+                    layout="intrinsic"
+                    height={700}
+                    width={700}
+                  />
+                  <motion.div
+                    whileInView={{ scale: [0, 1] }}
+                    transition={{ duration: 1, ease: 'easeInOut' }}
+                    className="overlay_circle"
+                  >
+                    <Image
+                      src={images.circle}
+                      alt="profile_circle"
+                      layout="intrinsic"
+                      height={1000}
+                      width={700}
+                      style={{ opacity: 0.15 }}
+                    />
+                  </motion.div>
+                </StyledHeroImg>
+
+                <StyledHeroCircles
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="tag-cmp"
+                  whileInView={{
+                    opacity: 1,
+                    transition: { duration: 1.3, delay: 0.7 },
+                  }}
                 >
-                  <p className="p-text">Web Developer</p>
-                  <p className="p-text">FullStack Engineer</p>
-                </motion.div>
-              </StyledBadge>
-            </StyledHeroInfo>
-
-            <StyledHeroImg animate={{ opacity: [0, 1] }}>
-              <Image
-                src={images.profile}
-                alt="profile_bg"
-                layout="intrinsic"
-                height={700}
-                width={700}
-              />
-              <motion.div
-                whileInView={{ scale: [0, 1] }}
-                transition={{ duration: 1, ease: 'easeInOut' }}
-                className="overlay_circle"
-              >
-                <Image
-                  src={images.circle}
-                  alt="profile_circle"
-                  layout="intrinsic"
-                  height={900}
-                  width={700}
-                  style={{ opacity: 0.15 }}
-                />
-              </motion.div>
-            </StyledHeroImg>
-
-            <StyledHeroCircles
-              initial={{ opacity: 0 }}
-              whileInView={{
-                opacity: 1,
-                transition: { duration: 1.3, delay: 0.7 },
-              }}
-            >
-              {[images.flutter, images.redux, images.sass].map(
-                (circle, index) => (
-                  <div className="circle-cmp " key={`circle-${index}`}>
-                    <Image src={circle} alt="profile_bg" />
-                  </div>
-                )
-              )}
-            </StyledHeroCircles>
-          </>
-        )
-      )}
-    </StyledHero>
+                  {[images.flutter, images.redux, images.sass].map(
+                    (circle, index) => (
+                      <div className="circle-cmp " key={`circle-${index}`}>
+                        <Image src={circle} alt="profile_bg" />
+                      </div>
+                    )
+                  )}
+                </StyledHeroCircles>
+              </>
+            )
+          )}
+        </StyledHero>
+      </div>
+    </StyledContainer>
   )
 }
 
