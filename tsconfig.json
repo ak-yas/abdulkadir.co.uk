@@ -15,6 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/menu.tsx", "components/side.tsx", "components/navigationDots.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/menu.tsx", "components/side.tsx", "components/navigationDots.tsx", "components/wavyText.tsx"],
   "exclude": ["node_modules"]
 }
