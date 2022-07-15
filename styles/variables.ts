@@ -14,7 +14,7 @@ const variables = css`
     --lightest-platinum: #e7e7e7;
     --white: #ffffeb;
     --gold: #cfac51;
-    --green: ##08d9a1;
+    --green: #08d9a1;
     --green-tint: rgba(100, 255, 218, 0.1);
     --blue: #48beff;
 
