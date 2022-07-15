@@ -138,7 +138,7 @@ const StyleContainer = styled.div`
 
       p {
         font-weight: 400;
-        color: var(--gold);
+        color: var(--blue);
         margin-top: 5px;
       }
     }
@@ -149,7 +149,7 @@ const StyleContainer = styled.div`
 
     p {
       font-weight: 800;
-      color: var(--blue);
+      color: var(--gold);
     }
 
     @media screen and (max-width: 450px) {
@@ -247,7 +247,7 @@ const Skills = () => {
   return (
     <StyledSkillsSection id="skills">
       <h2>
-        <WavyText text="Skills & Experiences" />
+        <WavyText text="Skills & Experiences" color />
       </h2>
 
       <StyleContainer>

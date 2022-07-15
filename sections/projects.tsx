@@ -268,7 +268,7 @@ const Projects = () => {
   return (
     <StyledProjectsSection id="more">
       <h2>
-        <WavyText text="Other creative projects" />
+        <WavyText text="Other creative projects" color />
       </h2>
 
       <motion.ul className="projects-grid">
