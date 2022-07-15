@@ -56,7 +56,7 @@ const StyledHeader = styled.header`
       css`
         height: var(--nav-scroll-height);
         transform: translateY(0);
-        /* background-color: rgb(109, 65, 161); */
+        background-color: rgba(10, 26, 32, 0.85);
         box-shadow: 0 10px 30px -10px var(--fogra-shadow);
       `};
     ${(props) =>
