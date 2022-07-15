@@ -6,7 +6,8 @@ const variables = css`
     --fogra: #0a1a20;
     --light-fogra: #14333e;
     --lightest-fogra: #1e4c5c;
-    --fogra-shadow: rgba(2, 12, 27, 0.7);
+    --fogra-shadow: rgba(2, 12, 27, 0.7); 
+    --light-fogra-shadow: rgba(2, 12, 27, 0.5);
     --dark-platinum: #b6b6b6;
     --platinum: #c7c7c7;
     --light-platinum: #d7d7d7;
@@ -15,7 +16,6 @@ const variables = css`
     --gold: #cfac51;
     --green: ##08d9a1;
     --green-tint: rgba(100, 255, 218, 0.1);
-    --pink: #99ccdf;
     --blue: #48beff;
 
 
