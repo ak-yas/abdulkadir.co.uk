@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 import { ThemeInterface } from '../theme'
 import variables from './variables'
 
-const GlobalStyle = createGlobalStyle<{theme: ThemeInterface}>`
+const GlobalStyle = createGlobalStyle<{ theme: ThemeInterface }>`
   ${variables};
   html {
     box-sizing: border-box;
@@ -457,6 +457,7 @@ const GlobalStyle = createGlobalStyle<{theme: ThemeInterface}>`
         font-size: 0.9rem;
     }
 }
+
 `
 
 export default GlobalStyle

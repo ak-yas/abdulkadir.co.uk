@@ -4,6 +4,7 @@ import Hero from '../sections/hero'
 import Work from '../sections/work'
 import Projects from '../sections/projects'
 import Skills from '../sections/skills'
+import Footer from '../sections/footer'
 
 const StyledMainContainer = styled.main`
   counter-reset: section;
@@ -19,6 +20,7 @@ const Home = () => (
       <Work />
       <Projects />
       <Skills />
+      <Footer />
     </StyledMainContainer>
   </>
 )

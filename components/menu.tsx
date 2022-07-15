@@ -153,7 +153,7 @@ const StyledSidebar = styled.aside`
       padding: 3px 20px 20px;
     }
   }
-  .resume-link {
+  .cv-link {
     ${({ theme }) => theme.mixins.bigButton};
     padding: 18px 50px;
     margin: 10% auto 0;
@@ -276,8 +276,8 @@ const Menu = () => {
               </ol>
             )}
 
-            <a href="/resume.pdf" className="resume-link">
-              Resume
+            <a href="/cv.pdf" className="cv-link">
+              Download CV
             </a>
           </nav>
         </StyledSidebar>

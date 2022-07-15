@@ -58,10 +58,10 @@ const WavyText = ({
         display: 'inline-flex',
         flexWrap: 'wrap',
         overflow: 'hidden',
-        color: `${color ? `var(--pink)` : `var(--black-color)`}`,
-        fontSize: 'clamp(24px, 4vw, 28px)',
-        fontWeight: 800,
-        marginBottom: '4rem',
+        color: `${color ? `var(--green)` : `var(--light-platinum)`}`,
+        fontSize: 'clamp(18px, 5vw, var(--fz-heading))',
+        fontWeight: 600,
+        marginBottom: '3rem',
       }}
       variants={container}
       initial="hidden"
