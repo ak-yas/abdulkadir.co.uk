@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { images } from '../public'
 import WavyText from '../components/wavyText'
+import { client } from '../lib/client'
 
 const StyledFooterContainer = styled.div`
   margin: 0 auto;
@@ -169,6 +170,21 @@ const Footer = () => {
 
   const handleSubmit = () => {
     setLoading(true)
+
+    const contact = {
+      _type: 'contact',
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    }
+
+    client
+      .create(contact)
+      .then(() => {
+        setLoading(false)
+        setIsFormSubmitted(true)
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
