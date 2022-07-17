@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@sanity/client": "^3.3.2",
+    "@sanity/image-url": "^1.0.1",
     "framer-motion": "^6.4.3",
     "next": "latest",
     "react": "^18.2.0",
