@@ -1,10 +1,11 @@
-import Image from 'next/image'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import { FaGithubAlt } from 'react-icons/fa'
 import { HiExternalLink } from 'react-icons/hi'
 import WavyText from '../components/wavyText'
 import { usePrefersReducedMotion } from '../hooks'
+import { useEffect, useState } from 'react'
+import { urlFor, client } from '../lib/client'
 
 const StyledProjectsGrid = styled('ul')`
   ${({ theme }) => theme.mixins.resetList};
@@ -255,21 +256,16 @@ const StyledProject = styled(motion.li)`
       opacity: 0.25;
     }
 
-    .image-container {
-      > span {
-        position: unset !important;
-      }
+    .img {
+      border-radius: var(--border-radius);
+      mix-blend-mode: multiply;
+      filter: grayscale(100%) contrast(1) brightness(90%);
+      height: 100%;
 
-      .img {
-        border-radius: var(--border-radius);
-        mix-blend-mode: multiply;
-        filter: grayscale(100%) contrast(1) brightness(90%);
-
-        @media (max-width: 768px) {
-          width: auto;
-          height: 100%;
-          filter: grayscale(100%) contrast(1) brightness(50%);
-        }
+      @media (max-width: 768px) {
+        width: auto;
+        height: 100%;
+        filter: grayscale(100%) contrast(1) brightness(50%);
       }
     }
 
@@ -312,38 +308,16 @@ const StyledProject = styled(motion.li)`
 `
 
 const Work = () => {
-  const featuredProjects = [
-    {
-      title: 'Crypto Kraken',
-      cover:
-        'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
-      github: '#',
-      external: '#',
-      tech: ['Node', 'Nextjs', 'Express', 'Framer', 'Tailwind'],
+  const [work, setWork] = useState([])
 
-      description: `A web app for visualizing personalized crypto data. View your top NFT, recently purchased NFT, and detailed information about the value of each asset. Trade and buy new assets of recommended NFTs based on your previous purchases.`,
-    },
-    {
-      title: 'Crypto Kraken',
-      cover:
-        'https://cdn.pixabay.com/photo/2022/06/20/16/41/dandelion-7274177_960_720.jpg',
-      github: '#',
-      external: '#',
-      tech: ['Node', 'Nextjs', 'Express', 'Framer', 'Tailwind'],
+  useEffect(() => {
+    const query = '*[_type == "works"]'
 
-      description: `A web app for visualizing personalized crypto data. View your top NFT, recently purchased NFT, and detailed information about the value of each asset. Trade and buy new assets of recommended NFTs based on your previous purchases.`,
-    },
-    {
-      title: 'Crypto Kraken',
-      cover:
-        'https://cdn.pixabay.com/photo/2022/06/20/16/41/dandelion-7274177_960_720.jpg',
-      github: '#',
-      external: '#',
-      tech: ['Node', 'Nextjs', 'Express', 'Framer', 'Tailwind'],
-
-      description: `A web app for visualizing personalized crypto data. View your top NFT, recently purchased NFT, and detailed information about the value of each asset. Trade and buy new assets of recommended NFTs based on your previous purchases.`,
-    },
-  ]
+    client.fetch(query).then((data) => {
+      setWork(data)
+    })
+    console.log(work)
+  }, [])
 
   const prefersReducedMotion = usePrefersReducedMotion()
 
@@ -352,9 +326,9 @@ const Work = () => {
       <WavyText text="Projects I've built" color />
 
       <StyledProjectsGrid>
-        {featuredProjects &&
-          featuredProjects.map((project, i) => {
-            const { external, title, tech, github, cover, description } =
+        {work &&
+          work.map((project, i) => {
+            const { projectLink, title, tags, codeLink, imgUrl, description } =
               project
 
             return (
@@ -379,7 +353,7 @@ const Work = () => {
                           <p className="project-overline">Main Project</p>
 
                           <h3 className="project-title">
-                            <a href={external}>{title}</a>
+                            <a href={projectLink}>{title}</a>
                           </h3>
 
                           <div
@@ -387,24 +361,24 @@ const Work = () => {
                             dangerouslySetInnerHTML={{ __html: description }}
                           />
 
-                          {tech.length && (
+                          {tags.length && (
                             <ul className="project-tech-list">
-                              {tech.map((tech, i) => (
-                                <li key={i}>{tech}</li>
+                              {tags.map((tag, i) => (
+                                <li key={i}>{tag}</li>
                               ))}
                             </ul>
                           )}
 
                           <div className="project-links">
-                            {github && (
-                              <a href={github} aria-label="GitHub Link">
+                            {codeLink && (
+                              <a href={codeLink} aria-label="codeLink Link">
                                 <FaGithubAlt />
                               </a>
                             )}
-                            {external && (
+                            {projectLink && (
                               <a
-                                href={external}
-                                aria-label="External Link"
+                                href={projectLink}
+                                aria-label="Project Link"
                                 className="external"
                               >
                                 <HiExternalLink />
@@ -414,17 +388,20 @@ const Work = () => {
                         </div>
                       </div>
                       <div className="project-image">
-                        <a href={external ? external : github ? github : '#'}>
-                          <div className="image-container">
-                            <Image
-                              src={cover}
-                              alt={title}
-                              className="img"
-                              layout="responsive"
-                              width={570}
-                              height={362}
-                            />
-                          </div>
+                        <a
+                          href={
+                            projectLink
+                              ? projectLink
+                              : codeLink
+                              ? codeLink
+                              : '#'
+                          }
+                        >
+                          <img
+                            src={`${urlFor(imgUrl)}`}
+                            alt={title}
+                            className="img"
+                          />
                         </a>
                       </div>
                     </motion.div>
@@ -449,7 +426,7 @@ const Work = () => {
                           <p className="project-overline">Main Project</p>
 
                           <h3 className="project-title">
-                            <a href={external}>{title}</a>
+                            <a href={projectLink}>{title}</a>
                           </h3>
 
                           <div
@@ -457,24 +434,24 @@ const Work = () => {
                             dangerouslySetInnerHTML={{ __html: description }}
                           />
 
-                          {tech.length && (
+                          {tags.length && (
                             <ul className="project-tech-list">
-                              {tech.map((tech, i) => (
-                                <li key={i}>{tech}</li>
+                              {tags.map((tag, i) => (
+                                <li key={i}>{tag}</li>
                               ))}
                             </ul>
                           )}
 
                           <div className="project-links">
-                            {github && (
-                              <a href={github} aria-label="GitHub Link">
+                            {codeLink && (
+                              <a href={codeLink} aria-label="codeLink Link">
                                 <FaGithubAlt />
                               </a>
                             )}
-                            {external && (
+                            {project && (
                               <a
-                                href={external}
-                                aria-label="External Link"
+                                href={projectLink}
+                                aria-label="Project Link"
                                 className="external"
                               >
                                 <HiExternalLink />
@@ -484,22 +461,25 @@ const Work = () => {
                         </div>
                       </div>
                       <div className="project-image">
-                        <a href={external ? external : github ? github : '#'}>
-                          <div className="image-container">
-                            <Image
-                              src={cover}
-                              alt={title}
-                              className="img"
-                              layout="responsive"
-                              width={400}
-                              height={250}
-                            />
-                          </div>
+                        <a
+                          href={
+                            projectLink
+                              ? projectLink
+                              : codeLink
+                              ? codeLink
+                              : '#'
+                          }
+                        >
+                          <img
+                            src={`${urlFor(imgUrl)}`}
+                            alt={title}
+                            className="img"
+                          />
                         </a>
                       </div>
                     </motion.div>
                   </StyledProject>
-                )}{' '}
+                )}
               </>
             )
           })}
